@@ -235,28 +235,29 @@
     </Component>
     <Component class="javax.swing.JRadioButton" name="RadioButtonFornecedorCadastro">
       <Properties>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="buttonGroup1"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="FORNECEDOR"/>
       </Properties>
-      <BindingProperties>
-        <BindingProperty name="selected" source="buttonGroup1" target="RadioButtonFornecedorCadastro" targetPath="selected" updateStrategy="0" immediately="false"/>
-      </BindingProperties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RadioButtonFornecedorCadastroActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JRadioButton" name="RadioButtonRecebedorCadastro">
       <Properties>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="buttonGroup1"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="RECEBEDOR"/>
       </Properties>
-      <BindingProperties>
-        <BindingProperty name="selected" source="buttonGroup1" target="RadioButtonRecebedorCadastro" targetPath="selected" updateStrategy="0" immediately="false"/>
-      </BindingProperties>
     </Component>
     <Component class="javax.swing.JButton" name="botaoCadastrar">
       <Properties>
         <Property name="text" type="java.lang.String" value="CADASTRAR"/>
       </Properties>
       <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="botaoCadastrarMouseClicked"/>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoCadastrarActionPerformed"/>
       </Events>
     </Component>

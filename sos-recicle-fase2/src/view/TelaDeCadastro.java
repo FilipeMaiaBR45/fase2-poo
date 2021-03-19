@@ -9,13 +9,14 @@ package view;
  *
  * @author edu_a
  */
-public class telaDeCadastro extends javax.swing.JFrame {
+public class TelaDeCadastro extends javax.swing.JFrame {
 
     /**
      * Creates new form telaDeCadastro
      */
-    public telaDeCadastro() {
+    public TelaDeCadastro() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -26,7 +27,6 @@ public class telaDeCadastro extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         buttonGroup2 = new javax.swing.ButtonGroup();
@@ -86,23 +86,23 @@ public class telaDeCadastro extends javax.swing.JFrame {
             }
         });
 
+        buttonGroup1.add(RadioButtonFornecedorCadastro);
         RadioButtonFornecedorCadastro.setText("FORNECEDOR");
-
-        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, buttonGroup1, org.jdesktop.beansbinding.ObjectProperty.create(), RadioButtonFornecedorCadastro, org.jdesktop.beansbinding.BeanProperty.create("selected"));
-        bindingGroup.addBinding(binding);
-
         RadioButtonFornecedorCadastro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 RadioButtonFornecedorCadastroActionPerformed(evt);
             }
         });
 
+        buttonGroup1.add(RadioButtonRecebedorCadastro);
         RadioButtonRecebedorCadastro.setText("RECEBEDOR");
 
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, buttonGroup1, org.jdesktop.beansbinding.ObjectProperty.create(), RadioButtonRecebedorCadastro, org.jdesktop.beansbinding.BeanProperty.create("selected"));
-        bindingGroup.addBinding(binding);
-
         botaoCadastrar.setText("CADASTRAR");
+        botaoCadastrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botaoCadastrarMouseClicked(evt);
+            }
+        });
         botaoCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botaoCadastrarActionPerformed(evt);
@@ -222,13 +222,11 @@ public class telaDeCadastro extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        bindingGroup.bind();
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
-        // TODO add your handling code here:
+       this.dispose();
     }//GEN-LAST:event_botaoCadastrarActionPerformed
 
     private void RadioButtonFornecedorCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioButtonFornecedorCadastroActionPerformed
@@ -240,8 +238,12 @@ public class telaDeCadastro extends javax.swing.JFrame {
     }//GEN-LAST:event_campoRuaTelaCadastroActionPerformed
 
     private void campoEmailTelaCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoEmailTelaCadastroActionPerformed
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_campoEmailTelaCadastroActionPerformed
+
+    private void botaoCadastrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoCadastrarMouseClicked
+ 
+    }//GEN-LAST:event_botaoCadastrarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -260,20 +262,21 @@ public class telaDeCadastro extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(telaDeCadastro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaDeCadastro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(telaDeCadastro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaDeCadastro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(telaDeCadastro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaDeCadastro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(telaDeCadastro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaDeCadastro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new telaDeCadastro().setVisible(true);
+                new TelaDeCadastro().setVisible(true);
             }
         });
     }
@@ -304,6 +307,5 @@ public class telaDeCadastro extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }

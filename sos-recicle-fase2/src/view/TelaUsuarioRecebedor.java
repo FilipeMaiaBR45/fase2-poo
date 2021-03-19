@@ -17,6 +17,7 @@ public class TelaUsuarioRecebedor extends javax.swing.JFrame {
      */
     public TelaUsuarioRecebedor() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**

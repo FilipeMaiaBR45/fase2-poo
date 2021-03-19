@@ -16,6 +16,7 @@ public class TelaUsuarioFornecedor extends javax.swing.JFrame {
      */
     public TelaUsuarioFornecedor() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -92,6 +93,11 @@ public class TelaUsuarioFornecedor extends javax.swing.JFrame {
         });
 
         ButtonVisualizarPerfilFornecedor.setText("VISUALIZAR PERFIL");
+        ButtonVisualizarPerfilFornecedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonVisualizarPerfilFornecedorActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -176,6 +182,11 @@ public class TelaUsuarioFornecedor extends javax.swing.JFrame {
     private void ButtonAceitarMissaoFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonAceitarMissaoFornecedorActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ButtonAceitarMissaoFornecedorActionPerformed
+
+    private void ButtonVisualizarPerfilFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonVisualizarPerfilFornecedorActionPerformed
+       TelaPerfilUsuarioFornecedor tela = new TelaPerfilUsuarioFornecedor();
+       tela.show();
+    }//GEN-LAST:event_ButtonVisualizarPerfilFornecedorActionPerformed
 
     /**
      * @param args the command line arguments
