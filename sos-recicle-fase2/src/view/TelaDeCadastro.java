@@ -5,6 +5,12 @@
  */
 package view;
 
+import javax.swing.JFormattedTextField;
+import javax.swing.text.MaskFormatter;
+import model.Endereco;
+import model.UsuarioFornecedor;
+import model.UsuarioRecebedor;
+
 /**
  *
  * @author edu_a
@@ -41,7 +47,6 @@ public class TelaDeCadastro extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         campoNomeTelaCadastro = new javax.swing.JTextField();
         campoEmailTelaCadastro = new javax.swing.JTextField();
-        campoTelefoneTelaCadastro = new javax.swing.JTextField();
         campoRuaTelaCadastro = new javax.swing.JTextField();
         campoNumeroTelaCadastro = new javax.swing.JTextField();
         campoBairroTelaCadastro = new javax.swing.JTextField();
@@ -53,6 +58,7 @@ public class TelaDeCadastro extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
         campoCepTelaCadastro = new javax.swing.JFormattedTextField();
+        campoTelefoneTelaCadastro = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -64,7 +70,7 @@ public class TelaDeCadastro extends javax.swing.JFrame {
 
         jLabel4.setText("SENHA");
 
-        jLabel5.setText("ENDEREÇO");
+        jLabel5.setText("ENDEREÇO:");
 
         jLabel6.setText("RUA");
 
@@ -73,6 +79,12 @@ public class TelaDeCadastro extends javax.swing.JFrame {
         jLabel8.setText("BAIRRO");
 
         jLabel9.setText("CEP");
+
+        campoNomeTelaCadastro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoNomeTelaCadastroActionPerformed(evt);
+            }
+        });
 
         campoEmailTelaCadastro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -96,6 +108,11 @@ public class TelaDeCadastro extends javax.swing.JFrame {
 
         buttonGroup1.add(RadioButtonRecebedorCadastro);
         RadioButtonRecebedorCadastro.setText("RECEBEDOR");
+        RadioButtonRecebedorCadastro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RadioButtonRecebedorCadastroActionPerformed(evt);
+            }
+        });
 
         botaoCadastrar.setText("CADASTRAR");
         botaoCadastrar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -109,7 +126,22 @@ public class TelaDeCadastro extends javax.swing.JFrame {
             }
         });
 
-        campoCepTelaCadastro.setText("jFormattedTextField1");
+        try {
+            campoCepTelaCadastro.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        campoCepTelaCadastro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoCepTelaCadastroActionPerformed(evt);
+            }
+        });
+
+        try {
+            campoTelefoneTelaCadastro.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) #####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -132,10 +164,9 @@ public class TelaDeCadastro extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(campoRuaTelaCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 1, Short.MAX_VALUE)
+                                .addGap(1, 1, 1)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel9)
                                     .addGroup(layout.createSequentialGroup()
@@ -143,10 +174,11 @@ public class TelaDeCadastro extends javax.swing.JFrame {
                                             .addComponent(jLabel7)
                                             .addComponent(jLabel8))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(campoCepTelaCadastro)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(campoRuaTelaCadastro, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
+                                            .addComponent(campoNumeroTelaCadastro)
                                             .addComponent(campoBairroTelaCadastro)
-                                            .addComponent(campoNumeroTelaCadastro))))))
+                                            .addComponent(campoCepTelaCadastro))))))
                         .addGap(245, 245, 245))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -166,8 +198,8 @@ public class TelaDeCadastro extends javax.swing.JFrame {
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(campoSenhaTelaCadastro)
-                                    .addComponent(campoTelefoneTelaCadastro, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE))))
+                                    .addComponent(campoSenhaTelaCadastro, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
+                                    .addComponent(campoTelefoneTelaCadastro))))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -226,7 +258,65 @@ public class TelaDeCadastro extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
-       this.dispose();
+        if (RadioButtonFornecedorCadastro.isSelected()) {
+            
+            UsuarioFornecedor uf = new UsuarioFornecedor();
+            Endereco endereco = new Endereco();
+
+            uf.setPontuacao(0);
+
+            uf.setNome(campoNomeTelaCadastro.getText());
+
+            uf.setEmail(campoEmailTelaCadastro.getText());
+
+            uf.setSenha(campoSenhaTelaCadastro.getText());
+
+            endereco.setRua(campoRuaTelaCadastro.getText());
+
+            endereco.setNumero(Integer.parseInt(campoNumeroTelaCadastro.getText()));
+
+            endereco.setBairro(campoBairroTelaCadastro.getText());
+
+            endereco.setCep(campoCepTelaCadastro.getText());
+
+            uf.setEndereco(endereco);
+
+            uf.setTelefone(campoTelefoneTelaCadastro.getText());
+
+            uf.setFuncao(1);
+            
+            //função do UsuarioFornecedorDAO vai receber o obj
+
+           
+        }else if(RadioButtonRecebedorCadastro.isSelected()){
+            
+            UsuarioRecebedor ur = new UsuarioRecebedor();
+            Endereco endereco = new Endereco();
+            
+            ur.setNivel(0);
+
+            ur.setNome(campoNomeTelaCadastro.getText());
+
+            ur.setEmail(campoEmailTelaCadastro.getText());
+
+            ur.setSenha(campoSenhaTelaCadastro.getText());
+
+            endereco.setRua(campoRuaTelaCadastro.getText());
+
+            endereco.setNumero(Integer.parseInt(campoNumeroTelaCadastro.getText()));
+
+            endereco.setBairro(campoBairroTelaCadastro.getText());
+
+            endereco.setCep(campoCepTelaCadastro.getText());
+
+            ur.setEndereco(endereco);
+
+            ur.setTelefone(campoTelefoneTelaCadastro.getText());
+            
+            ur.setFuncao(2);
+        }
+
+        this.dispose();
     }//GEN-LAST:event_botaoCadastrarActionPerformed
 
     private void RadioButtonFornecedorCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioButtonFornecedorCadastroActionPerformed
@@ -238,12 +328,24 @@ public class TelaDeCadastro extends javax.swing.JFrame {
     }//GEN-LAST:event_campoRuaTelaCadastroActionPerformed
 
     private void campoEmailTelaCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoEmailTelaCadastroActionPerformed
-       
+
     }//GEN-LAST:event_campoEmailTelaCadastroActionPerformed
 
     private void botaoCadastrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoCadastrarMouseClicked
- 
+
     }//GEN-LAST:event_botaoCadastrarMouseClicked
+
+    private void RadioButtonRecebedorCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioButtonRecebedorCadastroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_RadioButtonRecebedorCadastroActionPerformed
+
+    private void campoNomeTelaCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoNomeTelaCadastroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoNomeTelaCadastroActionPerformed
+
+    private void campoCepTelaCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoCepTelaCadastroActionPerformed
+           
+    }//GEN-LAST:event_campoCepTelaCadastroActionPerformed
 
     /**
      * @param args the command line arguments
@@ -294,7 +396,7 @@ public class TelaDeCadastro extends javax.swing.JFrame {
     private javax.swing.JTextField campoNumeroTelaCadastro;
     private javax.swing.JTextField campoRuaTelaCadastro;
     private javax.swing.JPasswordField campoSenhaTelaCadastro;
-    private javax.swing.JTextField campoTelefoneTelaCadastro;
+    private javax.swing.JFormattedTextField campoTelefoneTelaCadastro;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

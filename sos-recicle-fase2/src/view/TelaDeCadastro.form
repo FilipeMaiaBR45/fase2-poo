@@ -47,13 +47,12 @@
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="102" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
                               <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="campoRuaTelaCadastro" min="-2" pref="109" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace min="0" pref="1" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
@@ -62,10 +61,11 @@
                                           <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="campoCepTelaCadastro" max="32767" attributes="0"/>
-                                          <Component id="campoBairroTelaCadastro" alignment="0" max="32767" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="campoRuaTelaCadastro" pref="109" max="32767" attributes="0"/>
                                           <Component id="campoNumeroTelaCadastro" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="campoBairroTelaCadastro" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="campoCepTelaCadastro" alignment="0" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -94,8 +94,8 @@
                               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="campoSenhaTelaCadastro" max="32767" attributes="0"/>
-                                  <Component id="campoTelefoneTelaCadastro" pref="112" max="32767" attributes="0"/>
+                                  <Component id="campoSenhaTelaCadastro" pref="112" max="32767" attributes="0"/>
+                                  <Component id="campoTelefoneTelaCadastro" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -190,7 +190,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
-        <Property name="text" type="java.lang.String" value="ENDERE&#xc7;O"/>
+        <Property name="text" type="java.lang.String" value="ENDERE&#xc7;O:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">
@@ -214,13 +214,14 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="campoNomeTelaCadastro">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campoNomeTelaCadastroActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="campoEmailTelaCadastro">
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campoEmailTelaCadastroActionPerformed"/>
       </Events>
-    </Component>
-    <Component class="javax.swing.JTextField" name="campoTelefoneTelaCadastro">
     </Component>
     <Component class="javax.swing.JTextField" name="campoRuaTelaCadastro">
       <Events>
@@ -251,6 +252,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="RECEBEDOR"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RadioButtonRecebedorCadastroActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="botaoCadastrar">
       <Properties>
@@ -269,7 +273,19 @@
     </Component>
     <Component class="javax.swing.JFormattedTextField" name="campoCepTelaCadastro">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jFormattedTextField1"/>
+        <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
+          <Format format="#####-###" subtype="-1" type="5"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campoCepTelaCadastroActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JFormattedTextField" name="campoTelefoneTelaCadastro">
+      <Properties>
+        <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
+          <Format format="(##) #####-####" subtype="-1" type="5"/>
+        </Property>
       </Properties>
     </Component>
   </SubComponents>
