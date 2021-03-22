@@ -26,7 +26,7 @@ public class EnderecoDAO {
         PreparedStatement stmt = null;
         
         try {
-            stmt = con.prepareStatement("INSERT INTO endereco (rua, numero, bairro, cep, emailRecebedor, emailFornecedor) VALUES(?,?,?,?,?,?)");
+            stmt = con.prepareStatement("INSERT INTO endereco (rua, numero, bairro, cep, emailRecebedor, emailFornecedor, cidade, estado) VALUES(?,?,?,?,?,?,?,?)");
             
             stmt.setString(1, e.getRua());
             stmt.setInt(2, e.getNumero());
@@ -34,6 +34,8 @@ public class EnderecoDAO {
             stmt.setString(4, e.getCep());
             stmt.setString(5, e.getEmailRecebedor());
             stmt.setString(6, e.getEmailFornecedor());
+            stmt.setString(7, e.getCidade());
+            stmt.setString(8, e.getEstado());
             
             stmt.executeUpdate();
             
