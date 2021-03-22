@@ -21,11 +21,13 @@ import model.UsuarioFornecedor;
 public class UsuarioFornecedorDAO {
     
     public void cadastrarUsuarioFornecedor(UsuarioFornecedor uf){
+        
         Connection con = ConnectionFactory.getConnection();
+        System.out.println(con);
         PreparedStatement stmt = null;
         
         try {
-            stmt = con.prepareStatement("INSERT INTO usuariofornecedor (nome, email, telefone, funcao, senha, pontuacao), VALUES(?,?,?,?,?,?)");
+            stmt = con.prepareStatement("INSERT INTO usuariofornecedor (nome, email, telefone, funcao, senha, pontuacao) VALUES(?,?,?,?,?,?)");
             
             stmt.setString(1, uf.getNome());
             stmt.setString(2, uf.getEmail());

@@ -5,7 +5,9 @@
  */
 package view;
 
+import control.EnderecoDAO;
 import control.UsuarioFornecedorDAO;
+import control.UsuarioRecebedorDAO;
 import javax.swing.JFormattedTextField;
 import javax.swing.text.MaskFormatter;
 import model.Endereco;
@@ -265,6 +267,9 @@ public class TelaDeCadastro extends javax.swing.JFrame {
             UsuarioFornecedorDAO ufd = new UsuarioFornecedorDAO();
             
             Endereco endereco = new Endereco();
+            EnderecoDAO ed = new EnderecoDAO();
+            
+           // UsuarioRecebedor ur = new UsuarioRecebedor();
 
             uf.setPontuacao(0);
 
@@ -272,7 +277,9 @@ public class TelaDeCadastro extends javax.swing.JFrame {
 
             uf.setEmail(campoEmailTelaCadastro.getText());
 
-            uf.setSenha(campoSenhaTelaCadastro.getText());
+            uf.setSenha(String.valueOf(campoSenhaTelaCadastro.getPassword()));
+            
+            endereco.setEmailFornecedor(campoEmailTelaCadastro.getText());
 
             endereco.setRua(campoRuaTelaCadastro.getText());
 
@@ -290,13 +297,22 @@ public class TelaDeCadastro extends javax.swing.JFrame {
             
             ufd.cadastrarUsuarioFornecedor(uf);
             
-            //função do UsuarioFornecedorDAO vai receber o obj
+            ed.cadastrarEndereco(endereco);
+            
+            
+            
+            
 
            
         }else if(RadioButtonRecebedorCadastro.isSelected()){
             
             UsuarioRecebedor ur = new UsuarioRecebedor();
+            UsuarioRecebedorDAO urd = new UsuarioRecebedorDAO();
+            
             Endereco endereco = new Endereco();
+            EnderecoDAO ed = new EnderecoDAO();
+            
+            //UsuarioFornecedor uf = new UsuarioFornecedor();
             
             ur.setNivel(0);
 
@@ -304,7 +320,9 @@ public class TelaDeCadastro extends javax.swing.JFrame {
 
             ur.setEmail(campoEmailTelaCadastro.getText());
 
-            ur.setSenha(campoSenhaTelaCadastro.getText());
+            ur.setSenha(String.valueOf(campoSenhaTelaCadastro.getPassword()));
+            
+            endereco.setEmailRecebedor(campoEmailTelaCadastro.getText());
 
             endereco.setRua(campoRuaTelaCadastro.getText());
 
@@ -319,6 +337,14 @@ public class TelaDeCadastro extends javax.swing.JFrame {
             ur.setTelefone(campoTelefoneTelaCadastro.getText());
             
             ur.setFuncao(2);
+            
+            urd.cadastrarUsuarioRecebedor(ur);
+            
+            ed.cadastrarEndereco(endereco);
+            
+            
+            
+            
         }
 
         this.dispose();

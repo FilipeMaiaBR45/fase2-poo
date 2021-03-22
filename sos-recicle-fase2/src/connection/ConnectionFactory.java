@@ -27,7 +27,7 @@ public class ConnectionFactory {
     public static Connection getConnection() {
         try {
             Class.forName(DRIVER);
-            return DriverManager.getConnection(PASS, USER, URL);
+            return DriverManager.getConnection(URL, USER, PASS);
 
         } catch (ClassNotFoundException | SQLException ex) {
             throw new RuntimeException("Erro na conexão: ", ex);
@@ -68,4 +68,6 @@ public class ConnectionFactory {
             Logger.getLogger(ConnectionFactory.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+     
+     
 }
