@@ -5,6 +5,7 @@
  */
 package view;
 
+import control.UsuarioFornecedorDAO;
 import javax.swing.JFormattedTextField;
 import javax.swing.text.MaskFormatter;
 import model.Endereco;
@@ -261,6 +262,8 @@ public class TelaDeCadastro extends javax.swing.JFrame {
         if (RadioButtonFornecedorCadastro.isSelected()) {
             
             UsuarioFornecedor uf = new UsuarioFornecedor();
+            UsuarioFornecedorDAO ufd = new UsuarioFornecedorDAO();
+            
             Endereco endereco = new Endereco();
 
             uf.setPontuacao(0);
@@ -284,6 +287,8 @@ public class TelaDeCadastro extends javax.swing.JFrame {
             uf.setTelefone(campoTelefoneTelaCadastro.getText());
 
             uf.setFuncao(1);
+            
+            ufd.cadastrarUsuarioFornecedor(uf);
             
             //função do UsuarioFornecedorDAO vai receber o obj
 
