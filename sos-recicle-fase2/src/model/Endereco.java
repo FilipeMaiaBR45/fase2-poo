@@ -6,8 +6,14 @@ public class Endereco {
     private int numero;
     private String bairro;
     private String cep;
+    private String emailRecebedor;
+    private String emailFornecedor;
+
+    
+    
     public Endereco() {
     }
+    
     
 
     public Endereco(String rua, int numero, String bairro, String cep) {
@@ -47,6 +53,22 @@ public class Endereco {
 
     public void setCep(String cep) {
         this.cep = cep;
+    }
+    
+    public String getEmailRecebedor() {
+        return emailRecebedor;
+    }
+
+    public void setEmailRecebedor(String emailRecebedor) {
+        this.emailRecebedor = emailRecebedor;
+    }
+
+    public String getEmailFornecedor() {
+        return emailFornecedor;
+    }
+
+    public void setEmailFornecedor(String emailFornecedor) {
+        this.emailFornecedor = emailFornecedor;
     }
 
     @Override
