@@ -23,7 +23,7 @@ public class UsuarioRecebedorDAO {
         PreparedStatement stmt = null;
         
         try {
-            stmt = con.prepareStatement("INSERT INTO usuariofornecedor (nome, email, telefone, funcao, senha, pontuacao) VALUES(?,?,?,?,?,?)");
+            stmt = con.prepareStatement("INSERT INTO usuariorecebedor (nome, email, telefone, funcao, senha, pontuacao) VALUES(?,?,?,?,?,?)");
             
             stmt.setString(1, ur.getNome());
             stmt.setString(2, ur.getEmail());
