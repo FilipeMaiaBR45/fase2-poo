@@ -1,5 +1,8 @@
 package view;
 
+import model.Material;
+import model.Missao;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -39,7 +42,6 @@ public class TelaUsuarioRecebedor extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         RadioMaterialBorracha = new javax.swing.JRadioButton();
         RadioMaterialVidro = new javax.swing.JRadioButton();
         RadioMaterialMetais = new javax.swing.JRadioButton();
@@ -51,6 +53,7 @@ public class TelaUsuarioRecebedor extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         TelaRecebedorMenuObjetivoMissao = new javax.swing.JTextArea();
         TelaRecebedorPontuacaoMissaoCriada = new javax.swing.JLabel();
+        quantidadeMaterial = new javax.swing.JSpinner();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -71,20 +74,25 @@ public class TelaUsuarioRecebedor extends javax.swing.JFrame {
         ListaMissoesConcluidas = new javax.swing.JList<>();
         jSeparator5 = new javax.swing.JSeparator();
         jSeparator6 = new javax.swing.JSeparator();
+        CadastrarMissao = new javax.swing.JToggleButton();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("BEM VINDO (NOME)");
 
         BotaoVerPerfilRecebedor.setText("VISUALIZAR PERFIL");
+        BotaoVerPerfilRecebedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotaoVerPerfilRecebedorActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("NOME DA MISSÃO");
 
         jLabel3.setText("OBJETIVO DA MISSÃO");
 
         jLabel4.setText("MATERIAL DESEJADO");
-
-        jLabel5.setText("PONTUAÇÃO");
 
         buttonGroup1.add(RadioMaterialBorracha);
         RadioMaterialBorracha.setText("BORRACHA");
@@ -104,6 +112,12 @@ public class TelaUsuarioRecebedor extends javax.swing.JFrame {
         buttonGroup1.add(RadioMaterialPapel);
         RadioMaterialPapel.setText("PAPEL");
 
+        TelaRecebedorNomeMissao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TelaRecebedorNomeMissaoActionPerformed(evt);
+            }
+        });
+
         TelaRecebedorMenuObjetivoMissao.setColumns(20);
         TelaRecebedorMenuObjetivoMissao.setRows(5);
         jScrollPane1.setViewportView(TelaRecebedorMenuObjetivoMissao);
@@ -120,25 +134,7 @@ public class TelaUsuarioRecebedor extends javax.swing.JFrame {
                 .addContainerGap(37, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(TelaRecebedorPontuacaoMissaoCriada, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel4)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(RadioMaterialBorracha)
-                            .addComponent(RadioMaterialMadeira))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(RadioMaterialPlastico)
-                            .addComponent(RadioMaterialVidro))
-                        .addGap(10, 10, 10)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(RadioMaterialMetais)
-                            .addComponent(RadioMaterialPapel)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jLabel2)
@@ -153,6 +149,26 @@ public class TelaUsuarioRecebedor extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(83, 83, 83)
+                .addComponent(TelaRecebedorPontuacaoMissaoCriada, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(RadioMaterialBorracha)
+                    .addComponent(RadioMaterialMadeira))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(RadioMaterialPlastico)
+                    .addComponent(RadioMaterialVidro))
+                .addGap(10, 10, 10)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(RadioMaterialMetais)
+                    .addComponent(RadioMaterialPapel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(quantidadeMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(53, 53, 53))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -169,20 +185,23 @@ public class TelaUsuarioRecebedor extends javax.swing.JFrame {
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(RadioMaterialBorracha)
-                    .addComponent(RadioMaterialVidro)
-                    .addComponent(RadioMaterialMetais))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(RadioMaterialMadeira)
-                    .addComponent(RadioMaterialPlastico)
-                    .addComponent(RadioMaterialPapel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addComponent(TelaRecebedorPontuacaoMissaoCriada, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(RadioMaterialBorracha)
+                            .addComponent(RadioMaterialVidro)
+                            .addComponent(RadioMaterialMetais))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(RadioMaterialMadeira)
+                            .addComponent(RadioMaterialPlastico)
+                            .addComponent(RadioMaterialPapel)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(quantidadeMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addComponent(TelaRecebedorPontuacaoMissaoCriada, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -360,6 +379,15 @@ public class TelaUsuarioRecebedor extends javax.swing.JFrame {
 
         TelaRecebedorMenuMissao.addTab("CONCLUIDAS", jPanel8);
 
+        CadastrarMissao.setText("CADASTRAR");
+        CadastrarMissao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CadastrarMissaoActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("PONTUAÇÃO");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -374,10 +402,19 @@ public class TelaUsuarioRecebedor extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(BotaoVerPerfilRecebedor)
                 .addGap(27, 27, 27))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel5)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(TelaRecebedorMenuMissao, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(TelaRecebedorMenuMissao, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(CadastrarMissao)
+                        .addGap(154, 154, 154))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -390,11 +427,58 @@ public class TelaUsuarioRecebedor extends javax.swing.JFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(42, 42, 42)
                 .addComponent(TelaRecebedorMenuMissao, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(102, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addComponent(CadastrarMissao)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void BotaoVerPerfilRecebedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoVerPerfilRecebedorActionPerformed
+     TelaUsuarioRecebedor tela = new TelaUsuarioRecebedor ();
+     tela.show();
+       //
+       //
+       //
+       //
+       
+    }//GEN-LAST:event_BotaoVerPerfilRecebedorActionPerformed
+
+    private void CadastrarMissaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadastrarMissaoActionPerformed
+       Missao m = new Missao ();
+       Material ma = new Material();
+       m.setNome(TelaRecebedorNomeMissao.getText());
+       m.setObjetivo(TelaRecebedorMenuObjetivoMissao.getText());
+       if (RadioMaterialBorracha.isSelected()){
+           ma.setTipoDoMaterial(1);//material borracha id=1,
+       }
+       if (RadioMaterialMadeira.isSelected()){
+           ma.setTipoDoMaterial(2);//material madeira id=2,
+       }
+       if (RadioMaterialMetais.isSelected()){
+           ma.setTipoDoMaterial(3);//material metais id=3,
+       }
+           if (RadioMaterialPapel.isSelected()){
+           ma.setTipoDoMaterial(4);//material papel id=4,
+       }
+           if (RadioMaterialPlastico.isSelected()){
+           ma.setTipoDoMaterial(5);//material Plastico id=5,
+       }
+           if (RadioMaterialVidro.isSelected()){
+           ma.setTipoDoMaterial(6);//material vidro id=6,
+       }
+       m.setMaterial(ma);
+       //m.setEmailDoCriador(emailDoCriador);
+       
+    }//GEN-LAST:event_CadastrarMissaoActionPerformed
+
+    private void TelaRecebedorNomeMissaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TelaRecebedorNomeMissaoActionPerformed
+      Missao m = new Missao ();
+        m.setNome(TelaRecebedorNomeMissao.getText());
+    }//GEN-LAST:event_TelaRecebedorNomeMissaoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -436,6 +520,7 @@ public class TelaUsuarioRecebedor extends javax.swing.JFrame {
     private javax.swing.JButton BotaoCancelarMissaoEmAndamento;
     private javax.swing.JButton BotaoConcluirMissaoEmAndamento;
     private javax.swing.JButton BotaoVerPerfilRecebedor;
+    private javax.swing.JToggleButton CadastrarMissao;
     private javax.swing.JList<String> ListaDeMissaoEmAberto;
     private javax.swing.JList<String> ListaMissoesConcluidas;
     private javax.swing.JRadioButton RadioMaterialBorracha;
@@ -474,5 +559,6 @@ public class TelaUsuarioRecebedor extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
+    private javax.swing.JSpinner quantidadeMaterial;
     // End of variables declaration//GEN-END:variables
 }

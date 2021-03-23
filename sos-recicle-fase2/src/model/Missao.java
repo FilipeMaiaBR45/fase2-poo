@@ -5,12 +5,23 @@ package model;
 public class Missao {
     private int id;
     private String nome;
-    private int pontuacao;
+    private int pontuacao ;
     private Status status;
     private String objetivo;
     private String emailDoCriador;
     private String emailDoFornecedor;
     private Material material;
+    private int qtdMaterial;
+    
+    
+    
+    public int getQtdMaterial() {
+        return qtdMaterial;
+    }
+
+    public void setQtdMaterial(int qtdMaterial) {
+        this.qtdMaterial = qtdMaterial;
+    }
 
     public Missao() {
     }
@@ -82,7 +93,11 @@ public class Missao {
     public void setId(int id) {
         this.id = id;
     }
-    
+    public int calcularPontuacao(int peso, int qtdMaterial){
+        this.pontuacao = qtdMaterial * peso;
+        
+        return pontuacao;
+    }
 
     @Override
     public String toString() {
@@ -90,5 +105,6 @@ public class Missao {
     }
    
     
-  
+  //pontuacao = material x quantidade(kg) 6 metal 5 borracha 4 madeira 3 plastico 2 vidro 1 papel
+    
 }
