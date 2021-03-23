@@ -43,6 +43,12 @@ public class TelaLogin extends javax.swing.JFrame {
 
         jLabel1.setText("LOGIN");
 
+        TextFieldEmailLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TextFieldEmailLoginActionPerformed(evt);
+            }
+        });
+
         jLabel2.setText("EMAIL");
 
         jLabel3.setText("SENHA");
@@ -162,6 +168,10 @@ public class TelaLogin extends javax.swing.JFrame {
         TelaDeCadastro tela = new TelaDeCadastro();
         tela.show();
     }//GEN-LAST:event_ButtonAbrirTelaCadastroActionPerformed
+
+    private void TextFieldEmailLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldEmailLoginActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TextFieldEmailLoginActionPerformed
 
     /**
      * @param args the command line arguments

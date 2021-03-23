@@ -452,6 +452,10 @@ public class TelaUsuarioRecebedor extends javax.swing.JFrame {
        Material ma = new Material();
        m.setNome(TelaRecebedorNomeMissao.getText());
        m.setObjetivo(TelaRecebedorMenuObjetivoMissao.getText());
+       m.setMaterial(ma);
+       
+       
+       
        if (RadioMaterialBorracha.isSelected()){
            ma.setTipoDoMaterial(1);//material borracha id=1,
        }
