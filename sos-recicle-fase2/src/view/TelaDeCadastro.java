@@ -353,6 +353,8 @@ public class TelaDeCadastro extends javax.swing.JFrame {
             ur.setSenha(String.valueOf(campoSenhaTelaCadastro.getPassword()));
             
             endereco.setEmailRecebedor(campoEmailTelaCadastro.getText());
+            
+            endereco.setEmailFornecedor("");
 
             endereco.setRua(campoRuaTelaCadastro.getText());
 

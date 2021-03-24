@@ -5,6 +5,10 @@
  */
 package view;
 
+import control.UsuarioFornecedorDAO;
+import control.UsuarioRecebedorDAO;
+import model.UsuarioRecebedor;
+
 /**
  *
  * @author filip
@@ -14,9 +18,15 @@ public class TelaLogin extends javax.swing.JFrame {
     /**
      * Creates new form TelaLogin
      */
+    UsuarioFornecedorDAO ufd = new UsuarioFornecedorDAO();
+    UsuarioRecebedorDAO urd = new UsuarioRecebedorDAO();
+
+    String emailLogado;
+
     public TelaLogin() {
         initComponents();
         this.setLocationRelativeTo(null);
+
     }
 
     /**
@@ -33,8 +43,8 @@ public class TelaLogin extends javax.swing.JFrame {
         TextFieldEmailLogin = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        TextFieldSenhaLogin = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        BotaoLogar = new javax.swing.JButton();
+        campoSenhaTelaLogin = new javax.swing.JPasswordField();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         ButtonAbrirTelaCadastro = new javax.swing.JButton();
@@ -53,13 +63,18 @@ public class TelaLogin extends javax.swing.JFrame {
 
         jLabel3.setText("SENHA");
 
-        TextFieldSenhaLogin.addActionListener(new java.awt.event.ActionListener() {
+        BotaoLogar.setText("LOGAR");
+        BotaoLogar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TextFieldSenhaLoginActionPerformed(evt);
+                BotaoLogarActionPerformed(evt);
             }
         });
 
-        jButton1.setText("LOGAR");
+        campoSenhaTelaLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoSenhaTelaLoginActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -74,12 +89,12 @@ public class TelaLogin extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addComponent(jButton1)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(BotaoLogar)
+                        .addContainerGap(63, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(TextFieldSenhaLogin, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
-                            .addComponent(TextFieldEmailLogin))
+                            .addComponent(TextFieldEmailLogin)
+                            .addComponent(campoSenhaTelaLogin))
                         .addContainerGap())))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(81, 81, 81)
@@ -98,9 +113,9 @@ public class TelaLogin extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(TextFieldSenhaLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                    .addComponent(campoSenhaTelaLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addComponent(BotaoLogar)
                 .addContainerGap())
         );
 
@@ -150,7 +165,7 @@ public class TelaLogin extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(43, Short.MAX_VALUE)
+                .addContainerGap(40, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -160,10 +175,6 @@ public class TelaLogin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void TextFieldSenhaLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldSenhaLoginActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TextFieldSenhaLoginActionPerformed
-
     private void ButtonAbrirTelaCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonAbrirTelaCadastroActionPerformed
         TelaDeCadastro tela = new TelaDeCadastro();
         tela.show();
@@ -172,6 +183,26 @@ public class TelaLogin extends javax.swing.JFrame {
     private void TextFieldEmailLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldEmailLoginActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TextFieldEmailLoginActionPerformed
+
+    private void BotaoLogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoLogarActionPerformed
+
+        if (urd.verificarLoginUsuarioRecebedor(TextFieldEmailLogin.getText(), String.valueOf(campoSenhaTelaLogin.getPassword()))) {
+            emailLogado = TextFieldEmailLogin.getText();
+            TelaUsuarioRecebedor telaRecebedor = new TelaUsuarioRecebedor();
+
+            telaRecebedor.show();
+        } else if (ufd.verificarLoginUsuarioFornecedor(TextFieldEmailLogin.getText(), String.valueOf(campoSenhaTelaLogin.getPassword()))) {
+            TelaUsuarioFornecedor telaFornecedor = new TelaUsuarioFornecedor();
+            
+            telaFornecedor.show();
+        }
+
+
+    }//GEN-LAST:event_BotaoLogarActionPerformed
+
+    private void campoSenhaTelaLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoSenhaTelaLoginActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoSenhaTelaLoginActionPerformed
 
     /**
      * @param args the command line arguments
@@ -209,10 +240,10 @@ public class TelaLogin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BotaoLogar;
     private javax.swing.JButton ButtonAbrirTelaCadastro;
     private javax.swing.JTextField TextFieldEmailLogin;
-    private javax.swing.JTextField TextFieldSenhaLogin;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JPasswordField campoSenhaTelaLogin;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
