@@ -2,16 +2,17 @@ package view;
 
 import control.MissaoDao;
 import control.UsuarioRecebedorDAO;
+import javax.swing.SpinnerNumberModel;
 import model.Material;
 import model.Missao;
 import model.Status;
+import view.model.LoginModel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author edu_a
@@ -22,19 +23,16 @@ public class TelaUsuarioRecebedor extends javax.swing.JFrame {
      * Creates new form TelaUsuarioRecebedor
      */
     private int peso;
-    
-   
-    
+
     public TelaUsuarioRecebedor() {
-        
-        
-        
-    
-        
+
         initComponents();
         this.setLocationRelativeTo(null);
     }
-
+       
+    public void receberEmail(LoginModel model){
+        jLabelEmail.setText(model.getEmail());
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -64,8 +62,8 @@ public class TelaUsuarioRecebedor extends javax.swing.JFrame {
         TelaRecebedorNomeMissao = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         TelaRecebedorMenuObjetivoMissao = new javax.swing.JTextArea();
-        campoQtdMaterial = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
+        jSpinnerQuantidadeMaterial = new javax.swing.JSpinner();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -89,10 +87,11 @@ public class TelaUsuarioRecebedor extends javax.swing.JFrame {
         CadastrarMissao = new javax.swing.JToggleButton();
         jLabel5 = new javax.swing.JLabel();
         TelaRecebedorPontuacaoMissaoCriada = new javax.swing.JLabel();
+        jLabelEmail = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("BEM VINDO (NOME)");
+        jLabel1.setText("BEM VINDO");
 
         BotaoVerPerfilRecebedor.setText("VISUALIZAR PERFIL");
         BotaoVerPerfilRecebedor.addActionListener(new java.awt.event.ActionListener() {
@@ -135,12 +134,6 @@ public class TelaUsuarioRecebedor extends javax.swing.JFrame {
         TelaRecebedorMenuObjetivoMissao.setRows(5);
         jScrollPane1.setViewportView(TelaRecebedorMenuObjetivoMissao);
 
-        campoQtdMaterial.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoQtdMaterialActionPerformed(evt);
-            }
-        });
-
         jLabel7.setText("QUANTIDADE DE MATERIAL (Kg)");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -174,7 +167,7 @@ public class TelaUsuarioRecebedor extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addGap(18, 18, 18)
-                        .addComponent(campoQtdMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jSpinnerQuantidadeMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(RadioMaterialBorracha)
@@ -187,7 +180,7 @@ public class TelaUsuarioRecebedor extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(RadioMaterialMetais)
                             .addComponent(RadioMaterialPapel))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(158, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -216,8 +209,8 @@ public class TelaUsuarioRecebedor extends javax.swing.JFrame {
                     .addComponent(RadioMaterialPapel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(campoQtdMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
+                    .addComponent(jLabel7)
+                    .addComponent(jSpinnerQuantidadeMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -417,6 +410,8 @@ public class TelaUsuarioRecebedor extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabelEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(BotaoVerPerfilRecebedor)
                 .addGap(27, 27, 27))
@@ -442,7 +437,8 @@ public class TelaUsuarioRecebedor extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(BotaoVerPerfilRecebedor))
+                    .addComponent(BotaoVerPerfilRecebedor)
+                    .addComponent(jLabelEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(42, 42, 42)
@@ -451,7 +447,7 @@ public class TelaUsuarioRecebedor extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(TelaRecebedorPontuacaoMissaoCriada, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addGap(27, 27, 27)
                 .addComponent(CadastrarMissao)
                 .addContainerGap())
         );
@@ -460,80 +456,85 @@ public class TelaUsuarioRecebedor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BotaoVerPerfilRecebedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoVerPerfilRecebedorActionPerformed
-     TelaUsuarioRecebedor tela = new TelaUsuarioRecebedor ();
-     TelaLogin telaLogin = new TelaLogin();
-    
-     tela.show();
-       //
-       //
-       //
-       //
-       
+        TelaUsuarioRecebedor tela = new TelaUsuarioRecebedor();
+        TelaLogin telaLogin = new TelaLogin();
+
+        tela.show();
+        //
+        //
+        //
+        //
+
     }//GEN-LAST:event_BotaoVerPerfilRecebedorActionPerformed
 
     private void CadastrarMissaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadastrarMissaoActionPerformed
-       Missao m = new Missao ();
-       MissaoDao md = new MissaoDao();
-       Status s = new Status();
-       Material ma = new Material();
        
-       
-       m.setNome(TelaRecebedorNomeMissao.getText());
-       
-       m.setObjetivo(TelaRecebedorMenuObjetivoMissao.getText());
-       
-   
-       
-       if (RadioMaterialBorracha.isSelected()){
-           ma.setTipoDoMaterial(1);//material borracha id=1,
-           peso = 5;
-       }
-       if (RadioMaterialMadeira.isSelected()){
-           ma.setTipoDoMaterial(2);//material madeira id=2,
-           peso = 3;
-       }
-       if (RadioMaterialMetais.isSelected()){
-           ma.setTipoDoMaterial(3);//material metais id=3,
-           peso = 6;
-       }
-           if (RadioMaterialPapel.isSelected()){
-           ma.setTipoDoMaterial(4);//material papel id=4,
-           peso = 1;
-       }
-           if (RadioMaterialPlastico.isSelected()){
-           ma.setTipoDoMaterial(5);//material Plastico id=5,
-           peso = 2;
-       }
-           if (RadioMaterialVidro.isSelected()){
-           ma.setTipoDoMaterial(6);//material vidro id=6,
-           peso = 4;
-       }
-       
+        
+        
+
+        int pontuacao;
+
+        Missao m = new Missao();
+        MissaoDao md = new MissaoDao();
+        Status s = new Status();
+        Material ma = new Material();
+        LoginModel loginModel;
+
+        m.setNome(TelaRecebedorNomeMissao.getText());
+
+        m.setObjetivo(TelaRecebedorMenuObjetivoMissao.getText());
+
+        if (RadioMaterialBorracha.isSelected()) {
+            ma.setTipoDoMaterial(1);//material borracha id=1,
+            peso = 5;
+        }
+        if (RadioMaterialMadeira.isSelected()) {
+            ma.setTipoDoMaterial(2);//material madeira id=2,
+            peso = 3;
+        }
+        if (RadioMaterialMetais.isSelected()) {
+            ma.setTipoDoMaterial(3);//material metais id=3,
+            peso = 6;
+        }
+        if (RadioMaterialPapel.isSelected()) {
+            ma.setTipoDoMaterial(4);//material papel id=4,
+            peso = 1;
+        }
+        if (RadioMaterialPlastico.isSelected()) {
+            ma.setTipoDoMaterial(5);//material Plastico id=5,
+            peso = 2;
+        }
+        if (RadioMaterialVidro.isSelected()) {
+            ma.setTipoDoMaterial(6);//material vidro id=6,
+            peso = 4;
+        }
+
         m.setMaterial(ma);
-       
-        //m.setEmailDoCriador(emailLogado);
         
+        System.out.println(jLabelEmail.getText() + " tela do fornecedor");
+
+       m.setEmailDoCriador(jLabelEmail.getText());
+
         m.setEmailDoFornecedor(null);
-       
-        m.setPontuacao(m.calcularPontuacao(peso, Integer.parseInt(campoQtdMaterial.getText())));
-       
+        
+        //jSpinnerQuantidadeMaterial.getValue()
+        pontuacao = m.calcularPontuacao(peso, 5);
+        System.out.println(pontuacao);
+
+        m.setPontuacao(pontuacao);
+
         s.setStatus(0);
-       
+
         m.setStatus(s);
-        
-        //md.cadastrarMissao(m, emailLogado);
-        
-        
-       
+
+        md.cadastrarMissao(m);
+
+
     }//GEN-LAST:event_CadastrarMissaoActionPerformed
 
     private void TelaRecebedorNomeMissaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TelaRecebedorNomeMissaoActionPerformed
-     
-    }//GEN-LAST:event_TelaRecebedorNomeMissaoActionPerformed
 
-    private void campoQtdMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoQtdMaterialActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campoQtdMaterialActionPerformed
+    }//GEN-LAST:event_TelaRecebedorNomeMissaoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -590,7 +591,6 @@ public class TelaUsuarioRecebedor extends javax.swing.JFrame {
     private javax.swing.JTextField TelaRecebedorNomeMissao;
     private javax.swing.JLabel TelaRecebedorPontuacaoMissaoCriada;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JTextField campoQtdMaterial;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -598,6 +598,7 @@ public class TelaUsuarioRecebedor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabelEmail;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -616,5 +617,6 @@ public class TelaUsuarioRecebedor extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
+    private javax.swing.JSpinner jSpinnerQuantidadeMaterial;
     // End of variables declaration//GEN-END:variables
 }

@@ -76,6 +76,8 @@ public class UsuarioRecebedorDAO {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "erro ao efetuar Login, verifique as suas credencias..." + ex);
             
+        }finally{
+            ConnectionFactory.closeConnection(con, stmt,rs);
         }
         
         return retorno;

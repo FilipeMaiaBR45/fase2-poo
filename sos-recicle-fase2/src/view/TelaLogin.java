@@ -8,6 +8,7 @@ package view;
 import control.UsuarioFornecedorDAO;
 import control.UsuarioRecebedorDAO;
 import model.UsuarioRecebedor;
+import view.model.LoginModel;
 
 /**
  *
@@ -20,8 +21,7 @@ public class TelaLogin extends javax.swing.JFrame {
      */
     UsuarioFornecedorDAO ufd = new UsuarioFornecedorDAO();
     UsuarioRecebedorDAO urd = new UsuarioRecebedorDAO();
-
-    String emailLogado;
+    
 
     public TelaLogin() {
         initComponents();
@@ -185,15 +185,26 @@ public class TelaLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_TextFieldEmailLoginActionPerformed
 
     private void BotaoLogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoLogarActionPerformed
-
+        LoginModel loginModel = new LoginModel();
+        TelaUsuarioRecebedor telaRecebedor = new TelaUsuarioRecebedor();
+        TelaUsuarioFornecedor telaFornecedor = new TelaUsuarioFornecedor();
+        
         if (urd.verificarLoginUsuarioRecebedor(TextFieldEmailLogin.getText(), String.valueOf(campoSenhaTelaLogin.getPassword()))) {
-            emailLogado = TextFieldEmailLogin.getText();
-            TelaUsuarioRecebedor telaRecebedor = new TelaUsuarioRecebedor();
+           
+            loginModel.setEmail(TextFieldEmailLogin.getText());
+            //System.out.println(loginModel.getEmail());
+             telaRecebedor.receberEmail(loginModel);
+            
 
             telaRecebedor.show();
         } else if (ufd.verificarLoginUsuarioFornecedor(TextFieldEmailLogin.getText(), String.valueOf(campoSenhaTelaLogin.getPassword()))) {
-            TelaUsuarioFornecedor telaFornecedor = new TelaUsuarioFornecedor();
             
+            
+            loginModel.setEmail(TextFieldEmailLogin.getText());
+            System.out.println(loginModel.getEmail());
+
+           
+
             telaFornecedor.show();
         }
 

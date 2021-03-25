@@ -22,20 +22,21 @@ import model.UsuarioFornecedor;
  */
 public class MissaoDao {
 
-    public void cadastrarMissao(Missao m, String emailDoCriador) {
+    public void cadastrarMissao(Missao m) {
         Connection con = ConnectionFactory.getConnection();
         //Material materia = new Material ();
 
         PreparedStatement stmt = null;
         try {
-            stmt = con.prepareStatement("INSERT INTO usuariofornecedor (nome, pontucao, status, objetivo, emailDoRecebedor, emailDoFornecedor, material) VALUES(?,?,?,?,?,?)");
+            stmt = con.prepareStatement("INSERT INTO missao (nome, pontuacao, status, objetivo, emailDoRecebedor, emailDoFornecedor, material) VALUES(?,?,?,?,?,?,?)");
 
             stmt.setString(1, m.getNome());
             stmt.setInt(2, m.getPontuacao());
             stmt.setInt(3, m.getStatus().getStatus());
-            stmt.setString(4, emailDoCriador);
-            stmt.setString(5, m.getEmailDoFornecedor());
-            stmt.setInt(6, m.getMaterial().getTipoDoMaterial());
+            stmt.setString(4, m.getObjetivo());
+            stmt.setString(5, m.getEmailDoCriador());
+            stmt.setString(6, m.getEmailDoFornecedor());
+            stmt.setInt(7, m.getMaterial().getTipoDoMaterial());
 
             stmt.executeUpdate();
 
