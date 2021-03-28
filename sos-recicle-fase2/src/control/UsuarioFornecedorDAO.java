@@ -16,6 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.UsuarioFornecedor;
+import model.UsuarioRecebedor;
 
 /**
  *
@@ -79,4 +80,127 @@ public class UsuarioFornecedorDAO {
 
         return retorno;
     }
+    
+   /*
+    public void atualizarPontuacao(String emailFornecedor, int IdMissao){
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        
+        try {
+            stmt = con.prepareStatement("UPDATE usuarioFornecedor JOIN missao ON usuariofornecedor.email = ? SET usuarioFornecedor.pontuacao = usuarioFornecedor.pontuacao + missao.pontuacao where missao.emailDoFornecedor = usuariofornecedor.email and missao.idmissao = ?");
+            
+            stmt.setString(1,emailFornecedor);
+            stmt.setInt(2, IdMissao);
+                
+            stmt.executeUpdate();
+
+            //JOptionPane.showMessageDialog(null, "Usuario cadastrado com sucesso");
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "falha ao atualizar pontuacao" + ex);
+
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt);
+        }
+    }
+    
+    public void atualizarPontuacaoSemSucesso(String emailFornecedor, int IdMissao){
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        
+        try {
+            stmt = con.prepareStatement("UPDATE usuarioFornecedor JOIN missao ON usuariofornecedor.email = ? SET usuarioFornecedor.pontuacao = usuarioFornecedor.pontuacao - missao.pontuacao where missao.emailDoFornecedor = usuariofornecedor.email and missao.idmissao = ?");
+            
+            stmt.setString(1,emailFornecedor);
+            stmt.setInt(2, IdMissao);
+                
+            stmt.executeUpdate();
+
+            //JOptionPane.showMessageDialog(null, "Usuario cadastrado com sucesso");
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "falha ao atualizar pontuacao" + ex);
+
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt);
+        }
+    }
+    */
+    
+    public void atualizarPontuacao(String emailFornecedor, int pontuacaoMissao){
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        
+        try {
+            stmt = con.prepareStatement("update usuariofornecedor set pontuacao = pontuacao + ? where email = ? ");
+            
+            stmt.setInt(1, pontuacaoMissao);
+            stmt.setString(2,emailFornecedor);
+                
+            stmt.executeUpdate();
+
+            //JOptionPane.showMessageDialog(null, "Usuario cadastrado com sucesso");
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "falha ao atualizar pontuacao" + ex);
+
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt);
+        }
+    }
+    
+    public void atualizarPontuacaoSemSucesso(String emailFornecedor, int pontuacaoMissao){
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        
+        try {
+            stmt = con.prepareStatement("update usuariofornecedor set pontuacao = pontuacao - ? where email = ? ");
+           
+            stmt.setInt(1, pontuacaoMissao);
+            stmt.setString(2,emailFornecedor);
+            
+                
+            stmt.executeUpdate();
+
+            //JOptionPane.showMessageDialog(null, "Usuario cadastrado com sucesso");
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "falha ao atualizar pontuacao" + ex);
+
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt);
+        }
+    }
+    
+    public List<UsuarioFornecedor> rankingFornecedor(){
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        
+        List<UsuarioFornecedor> rankingFornecedor = new ArrayList<>();
+       
+        try {
+            stmt = con.prepareStatement("select email, pontuacao, nome from usuariofornecedor order by pontuacao desc");
+            
+             rs = stmt.executeQuery();  
+             
+             while(rs.next()){
+                 UsuarioFornecedor uf = new UsuarioFornecedor();
+                 
+                 uf.setEmail(rs.getString("email"));
+                 uf.setNome(rs.getString("nome"));
+                 uf.setPontuacao(rs.getInt("pontuacao"));
+                 
+                 rankingFornecedor.add(uf);
+                 
+             }
+            
+        } catch (Exception e) {
+        }
+       
+       return rankingFornecedor;
+    }
+    
+    
 }

@@ -192,19 +192,21 @@ public class TelaLogin extends javax.swing.JFrame {
         if (urd.verificarLoginUsuarioRecebedor(TextFieldEmailLogin.getText(), String.valueOf(campoSenhaTelaLogin.getPassword()))) {
            
             loginModel.setEmail(TextFieldEmailLogin.getText());
-            //System.out.println(loginModel.getEmail());
-             telaRecebedor.receberEmail(loginModel);
+            System.out.println(loginModel.getEmail());
+           
             
-
+            telaRecebedor.receberEmail(loginModel); 
+            
             telaRecebedor.show();
+            
         } else if (ufd.verificarLoginUsuarioFornecedor(TextFieldEmailLogin.getText(), String.valueOf(campoSenhaTelaLogin.getPassword()))) {
             
             
             loginModel.setEmail(TextFieldEmailLogin.getText());
             System.out.println(loginModel.getEmail());
-
-           
-
+            
+            telaFornecedor.receberEmail(loginModel);
+            
             telaFornecedor.show();
         }
 

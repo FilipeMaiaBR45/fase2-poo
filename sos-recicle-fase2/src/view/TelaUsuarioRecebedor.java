@@ -1,7 +1,11 @@
 package view;
 
 import control.MissaoDao;
+import control.UsuarioFornecedorDAO;
 import control.UsuarioRecebedorDAO;
+import javax.swing.DefaultListModel;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import model.Material;
 import model.Missao;
@@ -22,12 +26,21 @@ public class TelaUsuarioRecebedor extends javax.swing.JFrame {
     /**
      * Creates new form TelaUsuarioRecebedor
      */
-    private int peso;
+   
+   
+    
+    
 
     public TelaUsuarioRecebedor() {
 
         initComponents();
         this.setLocationRelativeTo(null);
+        
+        //jSpinnerQtdMaterial.setValue(1);
+        //SpinnerNumberModel nm = new SpinnerNumberModel();
+        //nm.setMinimum(1);
+        //nm.setStepSize(1);
+        //jSpinnerQtdMaterial.setModel(nm);
     }
        
     public void receberEmail(LoginModel model){
@@ -43,11 +56,12 @@ public class TelaUsuarioRecebedor extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
-        BotaoVerPerfilRecebedor = new javax.swing.JButton();
         TelaRecebedorMenuMissao = new javax.swing.JTabbedPane();
-        jPanel1 = new javax.swing.JPanel();
+        jPanelCriarMissao = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -63,42 +77,48 @@ public class TelaUsuarioRecebedor extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         TelaRecebedorMenuObjetivoMissao = new javax.swing.JTextArea();
         jLabel7 = new javax.swing.JLabel();
-        jSpinnerQuantidadeMaterial = new javax.swing.JSpinner();
+        jSpinnerQtdMaterial = new javax.swing.JSpinner();
+        jLabel5 = new javax.swing.JLabel();
+        TelaRecebedorPontuacaoMissaoCriada = new javax.swing.JLabel();
+        CadastrarMissao = new javax.swing.JToggleButton();
+        jPanelEmAberto = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        ListaDeMissaoEmAberto = new javax.swing.JList<>();
+        jButtonAtualizarListaEmAberto = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
+        jPanelEmAndamento = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         TelaRecebedorMissoesEmAndamento = new javax.swing.JList<>();
         jLabel6 = new javax.swing.JLabel();
         BotaoConcluirMissaoEmAndamento = new javax.swing.JButton();
-        BotaoCancelarMissaoEmAndamento = new javax.swing.JButton();
-        jPanel5 = new javax.swing.JPanel();
-        jPanel6 = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        ListaDeMissaoEmAberto = new javax.swing.JList<>();
-        BotaoCancelarMissaoEmAberto = new javax.swing.JButton();
-        jSeparator3 = new javax.swing.JSeparator();
-        jSeparator4 = new javax.swing.JSeparator();
+        BotaoMissaoNaoConcluida = new javax.swing.JButton();
+        jButtonAtualizarListaEmAndamento = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
-        jPanel9 = new javax.swing.JPanel();
+        jPanelConcluida = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         ListaMissoesConcluidas = new javax.swing.JList<>();
         jSeparator5 = new javax.swing.JSeparator();
         jSeparator6 = new javax.swing.JSeparator();
-        CadastrarMissao = new javax.swing.JToggleButton();
-        jLabel5 = new javax.swing.JLabel();
-        TelaRecebedorPontuacaoMissaoCriada = new javax.swing.JLabel();
+        jButtonAtualizarListaMissoesConcluidas = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        jListMissoesNaoConcluidas = new javax.swing.JList<>();
+        jButtonAtualizarMissoesNaoConcluidas = new javax.swing.JButton();
         jLabelEmail = new javax.swing.JLabel();
 
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane5.setViewportView(jTextArea1);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel1.setText("BEM VINDO");
-
-        BotaoVerPerfilRecebedor.setText("VISUALIZAR PERFIL");
-        BotaoVerPerfilRecebedor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotaoVerPerfilRecebedorActionPerformed(evt);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
             }
         });
+
+        jLabel1.setText("BEM VINDO");
 
         jLabel2.setText("NOME DA MISSÃO");
 
@@ -114,6 +134,11 @@ public class TelaUsuarioRecebedor extends javax.swing.JFrame {
 
         buttonGroup1.add(RadioMaterialMetais);
         RadioMaterialMetais.setText("METAIS");
+        RadioMaterialMetais.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RadioMaterialMetaisActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(RadioMaterialMadeira);
         RadioMaterialMadeira.setText("MADEIRA");
@@ -136,6 +161,29 @@ public class TelaUsuarioRecebedor extends javax.swing.JFrame {
 
         jLabel7.setText("QUANTIDADE DE MATERIAL (Kg)");
 
+        jSpinnerQtdMaterial.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        jSpinnerQtdMaterial.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSpinnerQtdMaterialStateChanged(evt);
+            }
+        });
+        jSpinnerQtdMaterial.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jSpinnerQtdMaterialMouseClicked(evt);
+            }
+        });
+
+        jLabel5.setText("PONTUAÇÃO");
+
+        TelaRecebedorPontuacaoMissaoCriada.setText("1");
+
+        CadastrarMissao.setText("CADASTRAR");
+        CadastrarMissao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CadastrarMissaoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -143,15 +191,12 @@ public class TelaUsuarioRecebedor extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(TelaRecebedorNomeMissao, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(TelaRecebedorNomeMissao, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(130, 130, 130)
@@ -164,23 +209,37 @@ public class TelaUsuarioRecebedor extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addGap(18, 18, 18)
-                        .addComponent(jSpinnerQuantidadeMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(RadioMaterialBorracha)
-                            .addComponent(RadioMaterialMadeira))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(RadioMaterialPlastico)
-                            .addComponent(RadioMaterialVidro))
-                        .addGap(10, 10, 10)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(RadioMaterialMetais)
-                            .addComponent(RadioMaterialPapel))))
-                .addContainerGap(158, Short.MAX_VALUE))
+                    .addComponent(RadioMaterialBorracha)
+                    .addComponent(RadioMaterialMadeira))
+                .addGap(49, 49, 49)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(RadioMaterialVidro)
+                    .addComponent(RadioMaterialPlastico))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(RadioMaterialMetais)
+                    .addComponent(RadioMaterialPapel))
+                .addGap(60, 60, 60))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(131, 131, 131)
+                .addComponent(jLabel4)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addComponent(jLabel7)
+                .addGap(37, 37, 37)
+                .addComponent(jSpinnerQtdMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(106, 106, 106)
+                .addComponent(jLabel5)
+                .addGap(18, 18, 18)
+                .addComponent(TelaRecebedorPontuacaoMissaoCriada, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(127, 127, 127)
+                .addComponent(CadastrarMissao)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -207,269 +266,287 @@ public class TelaUsuarioRecebedor extends javax.swing.JFrame {
                     .addComponent(RadioMaterialMadeira)
                     .addComponent(RadioMaterialPlastico)
                     .addComponent(RadioMaterialPapel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addGap(25, 25, 25)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jSpinnerQuantidadeMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-        );
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-
-        TelaRecebedorMenuMissao.addTab("CRIAR ", jPanel1);
-
-        TelaRecebedorMissoesEmAndamento.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane2.setViewportView(TelaRecebedorMissoesEmAndamento);
-
-        jLabel6.setText("SUAS MISSÕES");
-
-        BotaoConcluirMissaoEmAndamento.setText("CONCLUIR MISSÃO");
-
-        BotaoCancelarMissaoEmAndamento.setText("CANCELAR MISSÃO");
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(128, 128, 128)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2))
-                .addContainerGap())
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(BotaoConcluirMissaoEmAndamento)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
-                .addComponent(BotaoCancelarMissaoEmAndamento)
-                .addGap(34, 34, 34))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSpinnerQtdMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BotaoConcluirMissaoEmAndamento)
-                    .addComponent(BotaoCancelarMissaoEmAndamento))
-                .addGap(37, 37, 37))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(TelaRecebedorPontuacaoMissaoCriada, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(CadastrarMissao)
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        javax.swing.GroupLayout jPanelCriarMissaoLayout = new javax.swing.GroupLayout(jPanelCriarMissao);
+        jPanelCriarMissao.setLayout(jPanelCriarMissaoLayout);
+        jPanelCriarMissaoLayout.setHorizontalGroup(
+            jPanelCriarMissaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelCriarMissaoLayout.createSequentialGroup()
+                .addGap(54, 54, 54)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(58, Short.MAX_VALUE))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        jPanelCriarMissaoLayout.setVerticalGroup(
+            jPanelCriarMissaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCriarMissaoLayout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        TelaRecebedorMenuMissao.addTab("EM ANDAMENTIO", jPanel3);
+        TelaRecebedorMenuMissao.addTab("CRIAR ", jPanelCriarMissao);
 
-        ListaDeMissaoEmAberto.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane3.setViewportView(ListaDeMissaoEmAberto);
 
-        BotaoCancelarMissaoEmAberto.setText("CANCELAR MISSAO");
+        jButtonAtualizarListaEmAberto.setText("ATUALIZAR");
+        jButtonAtualizarListaEmAberto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAtualizarListaEmAbertoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane3))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(120, 120, 120)
-                        .addComponent(BotaoCancelarMissaoEmAberto)
-                        .addGap(0, 109, Short.MAX_VALUE))
-                    .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jSeparator4)))
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 461, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(195, 195, 195)
+                .addComponent(jButtonAtualizarListaEmAberto)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addContainerGap()
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(BotaoCancelarMissaoEmAberto)
-                .addGap(18, 18, 18)
-                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addComponent(jButtonAtualizarListaEmAberto)
+                .addContainerGap(182, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout jPanelEmAbertoLayout = new javax.swing.GroupLayout(jPanelEmAberto);
+        jPanelEmAberto.setLayout(jPanelEmAbertoLayout);
+        jPanelEmAbertoLayout.setHorizontalGroup(
+            jPanelEmAbertoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-
-        TelaRecebedorMenuMissao.addTab("EM ABERTO", jPanel5);
-
-        ListaMissoesConcluidas.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane4.setViewportView(ListaMissoesConcluidas);
-
-        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-        jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
+        jPanelEmAbertoLayout.setVerticalGroup(
+            jPanelEmAbertoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelEmAbertoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator6)
-                    .addComponent(jSeparator5)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE))
+                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
+
+        TelaRecebedorMenuMissao.addTab("EM ABERTO", jPanelEmAberto);
+
+        jScrollPane2.setViewportView(TelaRecebedorMissoesEmAndamento);
+
+        jLabel6.setText("SUAS MISSÕES");
+
+        BotaoConcluirMissaoEmAndamento.setText("MISSÃO CONCLUIDA");
+        BotaoConcluirMissaoEmAndamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotaoConcluirMissaoEmAndamentoActionPerformed(evt);
+            }
+        });
+
+        BotaoMissaoNaoConcluida.setText("MISSÃO NÃO CONCLUIDA");
+        BotaoMissaoNaoConcluida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotaoMissaoNaoConcluidaActionPerformed(evt);
+            }
+        });
+
+        jButtonAtualizarListaEmAndamento.setText("ATUALIZAR");
+        jButtonAtualizarListaEmAndamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAtualizarListaEmAndamentoActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanelEmAndamentoLayout = new javax.swing.GroupLayout(jPanelEmAndamento);
+        jPanelEmAndamento.setLayout(jPanelEmAndamentoLayout);
+        jPanelEmAndamentoLayout.setHorizontalGroup(
+            jPanelEmAndamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelEmAndamentoLayout.createSequentialGroup()
+                .addGroup(jPanelEmAndamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelEmAndamentoLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanelEmAndamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2)
+                            .addGroup(jPanelEmAndamentoLayout.createSequentialGroup()
+                                .addComponent(BotaoConcluirMissaoEmAndamento)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 169, Short.MAX_VALUE)
+                                .addComponent(BotaoMissaoNaoConcluida))))
+                    .addGroup(jPanelEmAndamentoLayout.createSequentialGroup()
+                        .addGap(199, 199, 199)
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonAtualizarListaEmAndamento)))
+                .addContainerGap())
+        );
+        jPanelEmAndamentoLayout.setVerticalGroup(
+            jPanelEmAndamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelEmAndamentoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelEmAndamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonAtualizarListaEmAndamento))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanelEmAndamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(BotaoConcluirMissaoEmAndamento)
+                    .addComponent(BotaoMissaoNaoConcluida))
+                .addContainerGap(151, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanelEmAndamento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanelEmAndamento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        TelaRecebedorMenuMissao.addTab("EM ANDAMENTIO", jPanel3);
+
+        jScrollPane4.setViewportView(ListaMissoesConcluidas);
+
+        jButtonAtualizarListaMissoesConcluidas.setText("ATUALIZAR");
+        jButtonAtualizarListaMissoesConcluidas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAtualizarListaMissoesConcluidasActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanelConcluidaLayout = new javax.swing.GroupLayout(jPanelConcluida);
+        jPanelConcluida.setLayout(jPanelConcluidaLayout);
+        jPanelConcluidaLayout.setHorizontalGroup(
+            jPanelConcluidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelConcluidaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelConcluidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator6)
+                    .addComponent(jSeparator5)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 461, Short.MAX_VALUE))
+                .addContainerGap())
+            .addGroup(jPanelConcluidaLayout.createSequentialGroup()
+                .addGap(197, 197, 197)
+                .addComponent(jButtonAtualizarListaMissoesConcluidas)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanelConcluidaLayout.setVerticalGroup(
+            jPanelConcluidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelConcluidaLayout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButtonAtualizarListaMissoesConcluidas)
+                .addContainerGap(108, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanelConcluida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanelConcluida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         TelaRecebedorMenuMissao.addTab("CONCLUIDAS", jPanel8);
 
-        CadastrarMissao.setText("CADASTRAR");
-        CadastrarMissao.addActionListener(new java.awt.event.ActionListener() {
+        jScrollPane6.setViewportView(jListMissoesNaoConcluidas);
+
+        jButtonAtualizarMissoesNaoConcluidas.setText("ATUALIZAR");
+        jButtonAtualizarMissoesNaoConcluidas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CadastrarMissaoActionPerformed(evt);
+                jButtonAtualizarMissoesNaoConcluidasActionPerformed(evt);
             }
         });
 
-        jLabel5.setText("PONTUAÇÃO");
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane6)
+                .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(192, 192, 192)
+                .addComponent(jButtonAtualizarMissoesNaoConcluidas)
+                .addContainerGap(200, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButtonAtualizarMissoesNaoConcluidas)
+                .addContainerGap(156, Short.MAX_VALUE))
+        );
 
-        TelaRecebedorPontuacaoMissaoCriada.setText("1");
+        TelaRecebedorMenuMissao.addTab("NÃO CONCLUIDAS", jPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabelEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(BotaoVerPerfilRecebedor)
-                .addGap(27, 27, 27))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(TelaRecebedorPontuacaoMissaoCriada, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(TelaRecebedorMenuMissao, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(CadastrarMissao)
-                        .addGap(154, 154, 154))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabelEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(133, 133, 133))
+                    .addComponent(jSeparator1))
+                .addGap(20, 20, 20))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(TelaRecebedorMenuMissao)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(BotaoVerPerfilRecebedor)
-                    .addComponent(jLabelEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42)
-                .addComponent(TelaRecebedorMenuMissao, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(TelaRecebedorPontuacaoMissaoCriada, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
-                .addComponent(CadastrarMissao)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(TelaRecebedorMenuMissao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void BotaoVerPerfilRecebedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoVerPerfilRecebedorActionPerformed
-        TelaUsuarioRecebedor tela = new TelaUsuarioRecebedor();
-        TelaLogin telaLogin = new TelaLogin();
-
-        tela.show();
-        //
-        //
-        //
-        //
-
-    }//GEN-LAST:event_BotaoVerPerfilRecebedorActionPerformed
-
     private void CadastrarMissaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadastrarMissaoActionPerformed
        
-        
+      int peso = 0;
+     
+      int qtdMaterial;
         
 
         int pontuacao;
@@ -517,8 +594,21 @@ public class TelaUsuarioRecebedor extends javax.swing.JFrame {
 
         m.setEmailDoFornecedor(null);
         
-        //jSpinnerQuantidadeMaterial.getValue()
-        pontuacao = m.calcularPontuacao(peso, 5);
+        
+       qtdMaterial =  (Integer) jSpinnerQtdMaterial.getValue();
+       
+      
+       
+        
+        //jSpinnerQuantidadeMaterial.setEditor(create);
+        
+        //qtdMaterial = );
+        
+        
+        
+        System.out.println(qtdMaterial);
+        
+        pontuacao = m.calcularPontuacao(peso, qtdMaterial);
         System.out.println(pontuacao);
 
         m.setPontuacao(pontuacao);
@@ -535,6 +625,280 @@ public class TelaUsuarioRecebedor extends javax.swing.JFrame {
     private void TelaRecebedorNomeMissaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TelaRecebedorNomeMissaoActionPerformed
 
     }//GEN-LAST:event_TelaRecebedorNomeMissaoActionPerformed
+
+    private void jSpinnerQtdMaterialMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jSpinnerQtdMaterialMouseClicked
+      
+    }//GEN-LAST:event_jSpinnerQtdMaterialMouseClicked
+
+    private void jSpinnerQtdMaterialStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinnerQtdMaterialStateChanged
+        int peso = 0;
+     
+      int qtdMaterial;
+        
+        Missao m = new Missao();
+         
+         if (RadioMaterialBorracha.isSelected()) {
+          //  ma.setTipoDoMaterial(1);//material borracha id=1,
+            peso = 5;
+        }
+        if (RadioMaterialMadeira.isSelected()) {
+          //  ma.setTipoDoMaterial(2);//material madeira id=2,
+            peso = 3;
+        }
+        if (RadioMaterialMetais.isSelected()) {
+          //  ma.setTipoDoMaterial(3);//material metais id=3,
+            peso = 6;
+        }
+        if (RadioMaterialPapel.isSelected()) {
+          //  ma.setTipoDoMaterial(4);//material papel id=4,
+            peso = 1;
+        }
+        if (RadioMaterialPlastico.isSelected()) {
+            //ma.setTipoDoMaterial(5);//material Plastico id=5,
+            peso = 2;
+        }
+        if (RadioMaterialVidro.isSelected()) {
+           // ma.setTipoDoMaterial(6);//material vidro id=6,
+            peso = 4;
+        }
+        
+        
+       qtdMaterial =  (Integer) jSpinnerQtdMaterial.getValue();
+         
+         
+       TelaRecebedorPontuacaoMissaoCriada.setText( Integer.toString(m.calcularPontuacao(peso, qtdMaterial)) ); 
+       
+       
+    }//GEN-LAST:event_jSpinnerQtdMaterialStateChanged
+
+    private void RadioMaterialMetaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioMaterialMetaisActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_RadioMaterialMetaisActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+      
+        DefaultListModel modelo1 = new DefaultListModel();
+        DefaultListModel modelo2 = new DefaultListModel();
+        DefaultListModel modelo3 = new DefaultListModel();
+        DefaultListModel modelo4 = new DefaultListModel();
+        
+        TelaRecebedorMissoesEmAndamento.setModel(modelo1);
+        ListaDeMissaoEmAberto.setModel(modelo2);
+        ListaMissoesConcluidas.setModel(modelo3);
+        jListMissoesNaoConcluidas.setModel(modelo4);
+        
+        String email = jLabelEmail.getText();
+        
+       
+        
+        MissaoDao mdao = new MissaoDao();
+        
+        for(Missao m: mdao.listarMissoesPorUsuarioRecebedor(1, email)){
+        
+        
+        modelo1.addElement("(id: " + m.getId() + ")"  + " (nome da missão: " + m.getNome() + ") " + "(pontução"  + m.getPontuacao() + ")" + "(email de quem aceitou a missão: " + m.getEmailDoFornecedor() + ")");
+        }
+        
+         for(Missao m: mdao.listarMissoesPorUsuarioRecebedor(0, email)){
+        
+        
+        modelo2.addElement("(id: " + m.getId() + ")"  + " (nome da missão: " + m.getNome() + ") " + "(pontução"  + m.getPontuacao() + ")");
+        }
+         
+        for(Missao m: mdao.listarMissoesPorUsuarioRecebedor(2, email)){
+        
+        
+        modelo3.addElement("(id: " + m.getId() + ")"  + " (nome da missão: " + m.getNome() + ") " + "(pontução"  + m.getPontuacao() + ")" + "(email de quem aceitou a missão: " + m.getEmailDoFornecedor() + ")");
+        }
+        
+        for(Missao m: mdao.listarMissoesPorUsuarioRecebedor(3, email)){
+        
+        
+        modelo4.addElement("(id: " + m.getId() + ")"  + " (nome da missão: " + m.getNome() + ") " + "(pontução"  + m.getPontuacao() + ")" + "(email de quem aceitou a missão: " + m.getEmailDoFornecedor() + ")");
+        }
+        
+    }//GEN-LAST:event_formWindowOpened
+
+    private void BotaoConcluirMissaoEmAndamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoConcluirMissaoEmAndamentoActionPerformed
+       
+       String email = jLabelEmail.getText();
+       int idMissao;
+       int valorMissao;
+       MissaoDao mdao = new MissaoDao();
+       UsuarioFornecedorDAO ufdao = new UsuarioFornecedorDAO();
+       
+       int i = TelaRecebedorMissoesEmAndamento.getSelectedIndex();
+       
+       
+     idMissao =  mdao.listarMissoesPorUsuarioRecebedor(1, email).get(i).getId();
+     String emailDoFornecedor = mdao.listarMissoesPorUsuarioRecebedor(1, email).get(i).getEmailDoFornecedor();
+     
+        System.out.println(idMissao);
+        System.out.println(emailDoFornecedor);
+        System.out.println("email logado " + email);
+        
+      
+       
+      
+      valorMissao = mdao.valorDaMissaoAceita(emailDoFornecedor, idMissao);
+      ufdao.atualizarPontuacao(emailDoFornecedor, valorMissao);
+      mdao.missaoConcluidaSucesso(idMissao);
+      
+      DefaultListModel modelo = new DefaultListModel();
+        
+        TelaRecebedorMissoesEmAndamento.setModel(modelo);
+        
+        //String email = jLabelEmail.getText();
+        System.out.println("email logado bnt atualizar " + email);
+        
+       
+        
+        //MissaoDao mdao = new MissaoDao();
+        
+        for(Missao m: mdao.listarMissoesPorUsuarioRecebedor(1, email)){
+        
+        
+        modelo.addElement("(id: " + m.getId() + ")"  + " (nome da missão: " + m.getNome() + ") " + "(pontução"  + m.getPontuacao() + ")" + "(email de quem aceitou a missão: " + m.getEmailDoFornecedor() + ")");
+        
+            System.out.println(m.getNome());
+        }
+      
+      
+    }//GEN-LAST:event_BotaoConcluirMissaoEmAndamentoActionPerformed
+
+    private void BotaoMissaoNaoConcluidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoMissaoNaoConcluidaActionPerformed
+       String email = jLabelEmail.getText();
+       int idMissao;
+       int valorMissao;
+       MissaoDao mdao = new MissaoDao();
+       UsuarioFornecedorDAO ufdao = new UsuarioFornecedorDAO();
+       
+       int i = TelaRecebedorMissoesEmAndamento.getSelectedIndex();
+       
+       
+     idMissao =  mdao.listarMissoesPorUsuarioRecebedor(1, email).get(i).getId();
+     String emailDoFornecedor = mdao.listarMissoesPorUsuarioRecebedor(1, email).get(i).getEmailDoFornecedor();
+     
+        System.out.println(idMissao);
+        System.out.println(emailDoFornecedor);
+        System.out.println("email logado " + email);
+        
+      
+       
+     
+      valorMissao = mdao.valorDaMissaoAceita(emailDoFornecedor, idMissao);
+      System.out.println(valorMissao);
+      ufdao.atualizarPontuacaoSemSucesso(emailDoFornecedor, valorMissao);
+      mdao.missaoConcluidaSemSucesso(idMissao);
+      
+      DefaultListModel modelo = new DefaultListModel();
+        
+        TelaRecebedorMissoesEmAndamento.setModel(modelo);
+        
+        //String email = jLabelEmail.getText();
+        System.out.println("email logado bnt atualizar " + email);
+        
+       
+        
+        //MissaoDao mdao = new MissaoDao();
+        
+        for(Missao m: mdao.listarMissoesPorUsuarioRecebedor(1, email)){
+        
+        
+        modelo.addElement("(id: " + m.getId() + ")"  + " (nome da missão: " + m.getNome() + ") " + "(pontução"  + m.getPontuacao() + ")" + "(email de quem aceitou a missão: " + m.getEmailDoFornecedor() + ")");
+        
+            System.out.println(m.getNome());
+        }
+      
+    }//GEN-LAST:event_BotaoMissaoNaoConcluidaActionPerformed
+
+    private void jButtonAtualizarListaMissoesConcluidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAtualizarListaMissoesConcluidasActionPerformed
+        DefaultListModel modelo = new DefaultListModel();
+        
+        ListaMissoesConcluidas.setModel(modelo);
+        
+        String email = jLabelEmail.getText();
+        System.out.println("email logado bnt atualizar " + email);
+        
+       
+        
+        MissaoDao mdao = new MissaoDao();
+        
+        for(Missao m: mdao.listarMissoesPorUsuarioRecebedor(2, email)){
+        
+        
+        modelo.addElement("(id: " + m.getId() + ")"  + " (nome da missão: " + m.getNome() + ") " + "(pontução"  + m.getPontuacao() + ")" + "(email de quem aceitou a missão: " + m.getEmailDoFornecedor() + ")");
+        
+            System.out.println(m.getNome());
+        }
+    }//GEN-LAST:event_jButtonAtualizarListaMissoesConcluidasActionPerformed
+
+    private void jButtonAtualizarListaEmAbertoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAtualizarListaEmAbertoActionPerformed
+        DefaultListModel modelo = new DefaultListModel();
+        
+         MissaoDao mdao = new MissaoDao();
+        
+        
+         ListaDeMissaoEmAberto.setModel(modelo);
+        
+        String email = jLabelEmail.getText();
+        System.out.println("email logado bnt atualizar " + email);
+        
+       
+        
+       
+        
+        for(Missao m: mdao.listarMissoesPorUsuarioRecebedor(0, email)){
+        
+        
+        modelo.addElement("(id: " + m.getId() + ")"  + " (nome da missão: " + m.getNome() + ") " + "(pontução"  + m.getPontuacao() + ")");
+        
+            System.out.println(m.getNome());
+        }
+      
+    }//GEN-LAST:event_jButtonAtualizarListaEmAbertoActionPerformed
+
+    private void jButtonAtualizarMissoesNaoConcluidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAtualizarMissoesNaoConcluidasActionPerformed
+         DefaultListModel modelo = new DefaultListModel();
+        
+        jListMissoesNaoConcluidas.setModel(modelo);
+        
+        String email = jLabelEmail.getText();
+        System.out.println("email logado bnt atualizar " + email);
+        
+       
+        
+        MissaoDao mdao = new MissaoDao();
+        
+        for(Missao m: mdao.listarMissoesPorUsuarioRecebedor(3, email)){
+        
+        
+        modelo.addElement("(id: " + m.getId() + ")"  + " (nome da missão: " + m.getNome() + ") " + "(pontução"  + m.getPontuacao() + ")" + "(email de quem aceitou a missão: " + m.getEmailDoFornecedor() + ")");
+        
+            System.out.println(m.getNome());
+        }
+    }//GEN-LAST:event_jButtonAtualizarMissoesNaoConcluidasActionPerformed
+
+    private void jButtonAtualizarListaEmAndamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAtualizarListaEmAndamentoActionPerformed
+        DefaultListModel modelo = new DefaultListModel();
+        
+        TelaRecebedorMissoesEmAndamento.setModel(modelo);
+        
+        String email = jLabelEmail.getText();
+        System.out.println("email logado bnt atualizar " + email);
+        
+       
+        
+        MissaoDao mdao = new MissaoDao();
+        
+        for(Missao m: mdao.listarMissoesPorUsuarioRecebedor(1, email)){
+        
+        
+        modelo.addElement("(id: " + m.getId() + ")"  + " (nome da missão: " + m.getNome() + ") " + "(pontução"  + m.getPontuacao() + ")" + "(email de quem aceitou a missão: " + m.getEmailDoFornecedor() + ")");
+        
+            System.out.println(m.getNome());
+        }
+    }//GEN-LAST:event_jButtonAtualizarListaEmAndamentoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -572,10 +936,8 @@ public class TelaUsuarioRecebedor extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BotaoCancelarMissaoEmAberto;
-    private javax.swing.JButton BotaoCancelarMissaoEmAndamento;
     private javax.swing.JButton BotaoConcluirMissaoEmAndamento;
-    private javax.swing.JButton BotaoVerPerfilRecebedor;
+    private javax.swing.JButton BotaoMissaoNaoConcluida;
     private javax.swing.JToggleButton CadastrarMissao;
     private javax.swing.JList<String> ListaDeMissaoEmAberto;
     private javax.swing.JList<String> ListaMissoesConcluidas;
@@ -591,6 +953,10 @@ public class TelaUsuarioRecebedor extends javax.swing.JFrame {
     private javax.swing.JTextField TelaRecebedorNomeMissao;
     private javax.swing.JLabel TelaRecebedorPontuacaoMissaoCriada;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton jButtonAtualizarListaEmAberto;
+    private javax.swing.JButton jButtonAtualizarListaEmAndamento;
+    private javax.swing.JButton jButtonAtualizarListaMissoesConcluidas;
+    private javax.swing.JButton jButtonAtualizarMissoesNaoConcluidas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -599,24 +965,27 @@ public class TelaUsuarioRecebedor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabelEmail;
+    private javax.swing.JList<String> jListMissoesNaoConcluidas;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
+    private javax.swing.JPanel jPanelConcluida;
+    private javax.swing.JPanel jPanelCriarMissao;
+    private javax.swing.JPanel jPanelEmAberto;
+    private javax.swing.JPanel jPanelEmAndamento;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
-    private javax.swing.JSpinner jSpinnerQuantidadeMaterial;
+    private javax.swing.JSpinner jSpinnerQtdMaterial;
+    private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 }

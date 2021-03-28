@@ -19,9 +19,16 @@ import java.util.logging.Logger;
  */
 public class ConnectionFactory {
 
-    private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
+    /*private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
     private static final String URL = "jdbc:mysql://localhost:3306/sosrecicle";
     private static final String USER = "root";
+    private static final String PASS = "root";
+    
+    */
+    
+    private static final String DRIVER = "org.postgresql.Driver";
+    private static final String URL = "jdbc:postgresql://127.0.0.1:5432/sosreciclepg";
+    private static final String USER = "postgres";
     private static final String PASS = "root";
 
     public static Connection getConnection() {

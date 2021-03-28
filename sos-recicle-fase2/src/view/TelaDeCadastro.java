@@ -67,7 +67,7 @@ public class TelaDeCadastro extends javax.swing.JFrame {
         campoCidadeTelaCadastro = new javax.swing.JTextField();
         campoEstadoTelaCadastro = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("NOME");
 
@@ -354,13 +354,17 @@ public class TelaDeCadastro extends javax.swing.JFrame {
             
             endereco.setEmailRecebedor(campoEmailTelaCadastro.getText());
             
-            endereco.setEmailFornecedor("");
+            endereco.setEmailRecebedor(campoEmailTelaCadastro.getText());
 
             endereco.setRua(campoRuaTelaCadastro.getText());
 
             endereco.setNumero(Integer.parseInt(campoNumeroTelaCadastro.getText()));
 
             endereco.setBairro(campoBairroTelaCadastro.getText());
+            
+            endereco.setCidade(campoCidadeTelaCadastro.getText());
+            
+            endereco.setEstado(campoEstadoTelaCadastro.getText());
 
             endereco.setCep(campoCepTelaCadastro.getText());
 

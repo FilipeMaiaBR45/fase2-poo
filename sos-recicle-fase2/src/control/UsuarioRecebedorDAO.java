@@ -72,7 +72,7 @@ public class UsuarioRecebedorDAO {
                 
             }
             
-            //fui comer, volto ja
+           
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "erro ao efetuar Login, verifique as suas credencias..." + ex);
             
