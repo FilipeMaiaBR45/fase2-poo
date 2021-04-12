@@ -3,13 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/filip/Documents/GitHub/fase2-poo/sos-recicle-fase2/src/control/StatusDAO.java</file>
             <file>file:/C:/Users/filip/Documents/GitHub/fase2-poo/sos-recicle-fase2/src/control/MissaoDao.java</file>
-            <file>file:/C:/Users/filip/Documents/GitHub/fase2-poo/sos-recicle-fase2/src/view/TelaUsuarioRecebedor.java</file>
-            <file>file:/C:/Users/filip/Documents/GitHub/fase2-poo/sos-recicle-fase2/src/view/TelaPerfilUsuarioRecebedor.java</file>
-            <file>file:/C:/Users/filip/Documents/GitHub/fase2-poo/sos-recicle-fase2/src/model/UsuarioFornecedor.java</file>
-            <file>file:/C:/Users/filip/Documents/GitHub/fase2-poo/sos-recicle-fase2/src/view/TelaUsuarioFornecedor.java</file>
-            <file>file:/C:/Users/filip/Documents/GitHub/fase2-poo/sos-recicle-fase2/src/control/UsuarioFornecedorDAO.java</file>
+            <file>file:/C:/Users/filip/Documents/GitHub/fase2-poo/sos-recicle-fase2/src/control/MaterialDAO.java</file>
+            <file>file:/C:/Users/filip/Documents/GitHub/fase2-poo/sos-recicle-fase2/src/control/UsuarioRecebedorDAO.java</file>
             <file>file:/C:/Users/filip/Documents/GitHub/fase2-poo/sos-recicle-fase2/src/view/TelaDeCadastro.java</file>
+            <file>file:/C:/Users/filip/Documents/GitHub/fase2-poo/sos-recicle-fase2/src/control/UsuarioFornecedorDAO.java</file>
             <file>file:/C:/Users/filip/Documents/GitHub/fase2-poo/sos-recicle-fase2/src/control/EnderecoDAO.java</file>
             <file>file:/C:/Users/filip/Documents/GitHub/fase2-poo/sos-recicle-fase2/src/connection/ConnectionFactory.java</file>
         </group>
